@@ -2,6 +2,7 @@
 logs
 #authorization token
 secrets.js
+.env
 
 *.log
 npm-debug.log*

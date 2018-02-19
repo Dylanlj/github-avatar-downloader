@@ -1,5 +1,5 @@
+require('dotenv').config()
 var request = require("request");
-var token = require("./secrets");
 var fs = require('fs');
 var repoOwner = process.argv.slice(2 , 3);
 var repoName = process.argv.slice(3 , 4);
@@ -15,8 +15,8 @@ function getRepoContributors(repoOwner, repoName, cb) {
     url : "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
      'User-Agent': 'request',
-     'Authorization': 'token' + token.GITHUB_TOKEN
-    };
+     'Authorization': 'token' + process.env.GITHUB_TOKEN
+    }
   };
 //requests the webpage with the proper authentication with the callback function inside receiving info
   request(options, function(err, res, body) {
