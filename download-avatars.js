@@ -6,8 +6,8 @@ var repoOwner = process.argv.slice(2 , 3);
 var repoName = process.argv.slice(3 , 4);
 
 //terminates the program if the user didn't give a second command line argument
-if(!repoName[0]){
-  throw 'You need to submit both a repo owner and repo name!';
+if(!repoName[0] || process.argv.slice(5)){
+  throw 'You need to submit exactly 2 arguments, a repo owner and a repo name!';
 };
 
 //holds the body and header of the request
