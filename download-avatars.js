@@ -7,8 +7,13 @@ var repoName = process.argv.slice(3 , 4);
 
 //terminates the program if the user didn't give a second command line argument
 if(!repoName[0]){
-  throw 'You need to submit both a repo owner and repo name!';
+  console.log('You need to submit both a repo owner and repo name!');
+  process.exit();
 };
+if(!process.env.GITHUB_TOKEN){
+  console.log('.env file is missing')
+  process.exit()
+}
 
 //holds the body and header of the request
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -36,14 +41,14 @@ function downloadImageByURL(url, filePath) {
 
 //initiates the program and provides a callback and part of the URL filepath
 getRepoContributors(repoOwner, repoName, function(err, body) {
-//converts from string to Object using JSON
   result = JSON.parse(body);
   if(result.message === 'Not Found'){
-    throw 'The provided owner/repo does not exist'
-  }
-//creates a directory called avatars if one doesn't already exists
+    console.log('The provided owner/repo does not exist');
+    process.exit();
+  };
+//creates the directory avatars if one doesn't already exists
   mkdirp('./avatars');
-//loops through objects in api array pulling image url and login name and passes them to downloadImageUrl function  
+//loops through objects in api the array pulling image url and login name and passes them to downloadImageUrl function  
   for(let obj of result){
     downloadImageByURL( obj.avatar_url, `./avatars/${obj.login}.jpg`);
   };
