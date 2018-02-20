@@ -1,4 +1,5 @@
 require('dotenv').config()
+var mkdirp = require('mkdirp');
 var request = require("request");
 var fs = require('fs');
 var repoOwner = process.argv.slice(2 , 3);
@@ -38,6 +39,8 @@ getRepoContributors(repoOwner, repoName, function(err, result) {
   console.log("Errors:", err);
 //converts from string to Object using JSON
   result = JSON.parse(result);
+//creates a directory called avatars if one doesn't already exist
+  mkdirp('./avatars')
 //loops through objects in api array pulling image url and login name and passes them to downloadImageUrl function
   for(let obj of result){
     downloadImageByURL( obj.avatar_url, `./avatars/${obj.login}.jpg`);

@@ -2,7 +2,12 @@
 logs
 #authorization token
 secrets.js
+
+#env files
 .env
+
+#for experimenting
+practice.js
 
 *.log
 npm-debug.log*
